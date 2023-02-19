@@ -29,10 +29,17 @@ h1 {
 .container header ul li a {
   text-decoration: none;
   color: salmon;
+  padding: 5px;
 }
 
 .container header ul li a:hover {
   background-color: aquamarine;
   color: aliceblue;
-  padding: 5px;
+}
+
+.hero {
+  height: 450px;
+
+  background-image: url(/latihan-box-model/computer.jpg);
+  background-size: cover;
 }
