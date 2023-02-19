@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: "Times New Roman", Times, serif;
 }
 
 body {
@@ -14,9 +15,10 @@ body {
 }
 header {
   padding: 20px;
+  padding-bottom: 10px;
 }
 h1 {
-  font-size: 40px;
+  font-size: 45px;
   font-weight: bold;
 }
 
@@ -38,8 +40,40 @@ h1 {
 }
 
 .hero {
-  height: 450px;
+  height: 300px;
 
   background-image: url(/latihan-box-model/computer.jpg);
   background-size: cover;
+  background-position: 0px -64px;
+  border-top: 5px solid #ef9696;
+  border-bottom: 5px solid #ef9696;
+}
+
+article {
+  padding: 20px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+article .penulis {
+  font-size: 13px;
+}
+
+article p {
+  margin-bottom: 20px;
+}
+
+article .penulis a {
+  color: salmon;
+  text-decoration: none;
+}
+
+footer {
+  background-color: rgb(69, 65, 65);
+  padding: 15px;
+  text-align: center;
+  color: azure;
+  font-size: 20px;
 }
