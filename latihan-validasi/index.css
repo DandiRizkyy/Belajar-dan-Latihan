@@ -1,0 +1,41 @@
+.main {
+  width: 500px;
+  height: 500px;
+  background-color: rgb(243, 96, 70);
+  margin: auto;
+  border-radius: 2rem;
+  box-shadow: 0px 11px 35px 2px rgb(0 0 0 / 14%);
+}
+
+.judul {
+  padding-top: 150px;
+  font-size: 40px;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+#nomor {
+  display: block;
+  width: 76%;
+  color: rgb(62, 77, 84);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+  background-color: rgb(240, 237, 234);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  box-sizing: border-box;
+  margin-bottom: 50px;
+  margin-left: 65px;
+  text-align: center;
+  margin-bottom: 27px;
+  font-family: sans-serif;
+}
+
+#submitNomor {
+  padding: 10px 30px 10px 30px;
+  border: none;
+  border-radius: 10px;
+}
