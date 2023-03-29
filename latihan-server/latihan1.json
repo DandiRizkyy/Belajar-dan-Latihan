@@ -1,0 +1,12 @@
+[
+    {
+        "name": "andi",
+        "umur" : 20,
+        "hobby" : ["bersepeda", "melayang"],
+        "pembimbing" : {
+            "pembimbing1" : "nuradi",
+            "pembimbing2" : "cahyadi"
+
+        }
+    }
+]
