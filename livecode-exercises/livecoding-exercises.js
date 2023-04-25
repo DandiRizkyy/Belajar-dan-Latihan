@@ -72,7 +72,7 @@
 // const nama4 = getUserAsync(2, (hasil) => {
 //   console.log(hasil);
 // });
-
+//===============================================================================
 //COUNT SHEEP
 // function countSheep(sheep) {
 //   let results = "";
@@ -84,14 +84,15 @@
 // }
 
 // console.log(countSheep(5));
-
+//=================================================================================
 // // MEMISAHKAN 2 STRING MENGGUNAKAN SPLIT
 // function shortenToDate(longDate) {
 //   return longDate.split(",")[0];
 // }
 
 // console.log(shortenToDate("Friday May 2, 7pm"));
-
+//==================================================================================
 // FUNGSI PEMBAGIAN
 // Create a function named divisors/Divisors that takes an integer n > 1 and returns an array with all of the integer's divisors(except for 1 and the number itself), from smallest to largest. If the number is prime return the string '(integer) is prime' (null in C#) (use Either String a in Haskell and Result<Vec<u32>, String> in Rust).
 function divisors(integer) {}
+console.log(divisors());
