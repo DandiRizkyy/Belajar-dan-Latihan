@@ -1,30 +1,64 @@
-import { Injectable } from "@nestjs/common";
-import { PrismaService } from "src/prisma/prisma.service";
-import { AuthDto } from "./dto";
-import * as argon from "argon2"
+import { ForbiddenException, Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { AuthDto } from './dto';
+import * as argon from 'argon2';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 
 @Injectable()
-export class AuthService{
-    constructor(private prisma: PrismaService){}
-    async signup(dto: AuthDto){
-        //generate the password hash
-        const hash = await argon.hash(dto.password);
+export class AuthService {
+  constructor(private prisma: PrismaService) {}
+  async signup(dto: AuthDto) {
+    try {
+      //generate the password hash
+      const hash = await argon.hash(dto.password);
 
-        //save the new user to db
-        const user = await this.prisma.user.create({
-            data: {
-                email: dto.email,
-                hash
-            },
-            
-        })
-        delete user.hash
-        //return the saved user
-        return user
-        return {msg: "Hello i have signup"}
+      //save the new user to db
+      const user = await this.prisma.user.create({
+        data: {
+          email: dto.email,
+          hash,
+        },
+      });
+      delete user.hash;
+      //return the saved user
+      return user;
+      return { msg: 'Hello i have signup' };
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new ForbiddenException('Credentials taken',);
+        }
+      }
+      throw error;
     }
-    signin(){
-        return {msg: "Hello i have signin"}
-    }
+  }
+  async signin(dto: AuthDto) {
+    // find the user by email
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email: dto.email,
+      }
+    })
+    // if the user doesnt exist throw execption
+    if (!user)
+      throw new ForbiddenException(
+        'Credentials incorrect',
+      );
     
+    // compare password
+    const pwMatches = await argon.verify(
+      user.hash,
+      dto.password,
+    );
+    // if password incorrect throw exeption
+      if (!pwMatches)
+        throw new ForbiddenException(
+          'Credentials incorrect',
+        );
+      
+    // send back the user
+    delete user.hash;
+    return user;
+    return { msg: 'Hello i have signin' };
+  }
 }
