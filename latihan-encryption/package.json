@@ -1,0 +1,27 @@
+{
+  "name": "latihan-encryption",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tscompile-symetric": "tsc --outDir dist src/symetric-encryption.ts --target es6",
+    "tscompile-asymetric": "tsc --outDir dist src/asymetric-encryption.ts --target es6",
+    "tscompile-password": "tsc --outDir dist src/passwordStore.ts --target es6",
+    "run:symetric": "node dist/symetric-encryption.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/node": "^20.1.1",
+    "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
+    "prisma": "^4.14.0"
+  }
+}
