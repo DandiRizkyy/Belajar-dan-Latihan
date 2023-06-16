@@ -7,19 +7,28 @@ import { List } from "./pages/Category/List";
 import { Edit } from "./pages/Category/Edit";
 import { New } from "./pages/Category/New";
 import { Provider } from "./provider/Provider";
+import { ListPokemon } from "./pages/Pokemon/ListPokemon";
+import { DetailPokemon } from "./pages/Pokemon/DetailPokemon";
+import { Register } from "./pages/Auth/Register";
+import { Login } from "./pages/Auth/Login";
+import { PrivateLayout } from "./components/PrivateLayout";
 
 function App() {
   return (
     <>
       <Provider>
         <Routes>
-          <Route element={<DefaultLayout />}>
+          <Route element={<PrivateLayout />}>
             <Route path="/" index element={<Home />} />
             <Route path="/category" element={<List />} />
             <Route path="/category/new" element={<New />} />
             <Route path="/category/edit/:id" element={<Edit />} />
-            <Route path="/pokemon" index element={<div>Pokemon</div>} />
-            <Route path="/pokemon/:name" element={<div>Detail</div>} />
+            <Route path="/pokemon" index element={<ListPokemon />} />
+            <Route path="/pokemon/:name" element={<DetailPokemon />} />
+          </Route>
+          <Route element={<DefaultLayout />}>
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
           </Route>
           <Route
             path="*"

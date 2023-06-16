@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../provider/Provider";
 
@@ -11,6 +11,7 @@ export const List = () => {
   // bagian provider
 
   console.log(context?.categories);
+
   const navigate = useNavigate();
   const handleRedirect = () => {
     navigate("/category/new");
@@ -22,9 +23,32 @@ export const List = () => {
   const handleDelete = (id: number) => {
     context?.deleteCategory({ id });
   };
+
+  const [filterValue, setFilterValue] = useState("");
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilterValue(event.target.value.toLowerCase());
+  };
+
+  const filteredCategories = context?.categories?.filter((category) =>
+    filterValue === ""
+      ? true
+      : category.isActive
+      ? filterValue === "active"
+      : filterValue === "inactive"
+  );
+
   return (
     <>
       <h4>List of Category</h4>
+      <div className="flex justify-center items-center py-2 ">
+        <input
+          className="py-1 px-12 border border-black rounded-xl text-center shadow-2xl shadow-black"
+          type="text"
+          placeholder="Filter Status.."
+          onChange={handleInputChange}
+        />
+      </div>
       <button
         type="button"
         onClick={handleRedirect}
@@ -51,7 +75,7 @@ export const List = () => {
             </tr>
           </thead>
           <tbody>
-            {context?.categories?.map((category) => (
+            {filteredCategories?.map((category) => (
               <tr
                 key={category.id}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -64,7 +88,7 @@ export const List = () => {
                 </th>
                 <td className="px-6 py-4">{category.name}</td>
                 <td className="px-6 py-4">
-                  {category.isActive ? "Active" : "Deactive"}
+                  {category.isActive ? "Active" : "Inactive"}
                 </td>
                 <td className="px-6 py-4">
                   <button

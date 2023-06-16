@@ -4,11 +4,14 @@ import { ReactNode, createContext, useState } from "react";
 type ContextType = {
   exampleValue: string;
   categories: Categories[];
+  pokemons: Pokemon[];
   fetchDataAdmin: () => void;
+  fetchDataPokemon: () => void;
   saveCategory: (data: SaveCategory) => void;
   updateCategory: (data: UpdateCategory) => void;
   deleteCategory: (data: DeleteCategory) => void;
   fetchCategoryById: (data: GetCategoryById) => void;
+  registerUser: (data: Register) => void;
 } | null;
 
 type ProviderProps = {
@@ -47,10 +50,27 @@ type DeleteCategory = {
   id: number;
 };
 
+type Register = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+interface Pokemon {
+  name: string;
+}
+
 export const AppContext = createContext<ContextType>(null);
 
 export const Provider = ({ children }: ProviderProps) => {
   const exampleValue = "this is example from context";
+  const [categories, setCategories] = useState<Categories[]>([]);
+  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+
+  const fetchDataPokemon = async () => {
+    const response = await axios.get("https://pokeapi.co/api/v2/pokemon");
+    setPokemons(response.data.results);
+  };
 
   const fetchDataAdmin = async () => {
     const response = await axios.get(
@@ -59,6 +79,7 @@ export const Provider = ({ children }: ProviderProps) => {
 
     setCategories(response.data);
   };
+
   const saveCategory = async (data: SaveCategory) => {
     const response = await axios.post(
       "https://6423f83a47401740432fbc9e.mockapi.io/admins",
@@ -94,17 +115,30 @@ export const Provider = ({ children }: ProviderProps) => {
     fetchDataAdmin();
   };
 
-  const [categories, setCategories] = useState<Categories[]>([]);
+  const registerUser = async (data: Register) => {
+    const response = await axios.post(
+      "https://mock-api.arikmpt.com/api/user/register",
+      {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      }
+    );
+  };
+
   return (
     <AppContext.Provider
       value={{
         exampleValue,
         categories,
+        pokemons,
         fetchDataAdmin,
+        fetchDataPokemon,
         saveCategory,
         updateCategory,
         deleteCategory,
         fetchCategoryById,
+        registerUser,
       }}
     >
       {children}
