@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Belajar React</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      function Button({ like, setLike }) {
+        const handleOnClick = () => {
+          setLike((prevState) => prevState + 1);
+        };
+        const handleMinusClick = () => {
+          setLike((prevState) => prevState - 1);
+        };
+        const handleReset = () => {
+          setLike((prevState) => 0);
+        };
+        return (
+          <>
+            {like === 10 ? (
+              <button disabled> + </button>
+            ) : (
+              <button onClick={handleOnClick}> + </button>
+            )}
+            {like < 0 ? (
+              <button disabled> - </button>
+            ) : (
+              <button onClick={handleMinusClick}> - </button>
+            )}
+            {like === 0 ? (
+              <button disabled> Reset! </button>
+            ) : (
+              <button onClick={handleReset}> Reset! </button>
+            )}
+          </>
+        );
+      }
+      function Header({ like }) {
+        return (
+          <>
+            <h1>Hello, {name ? name : "john"}</h1>
+            {like < 0 || like === 10 ? <p>done !</p> : <p>{like}</p>}
+          </>
+        );
+      }
+
+      function Homepage() {
+        const [like, setLike] = React.useState(0);
+        return (
+          <>
+            <Header like={like} />
+            <Button like={like} setLike={setLike} />
+          </>
+        );
+      }
+
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+      root.render(<Homepage />);
+    </script>
+    <!--
+      Note: this page is a great way to try React but it's not suitable for production.
+      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
+
+      Read this page for starting a new React project with JSX:
+      https://react.dev/learn/start-a-new-react-project
+
+      Read this page for adding React with JSX to an existing project:
+      https://react.dev/learn/add-react-to-an-existing-project
+    -->
+  </body>
+</html>
